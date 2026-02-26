@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-
+import android.content.Intent;
 public class MainActivity extends AppCompatActivity {
     // Declare the variables so that you will be able to reference it later.
     ListView cityList;
@@ -40,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         cityList.setAdapter(cityAdapter);
+
+        cityList.setOnItemClickListener((parent, view, position, id) -> {
+            String clickedCity = (String) parent.getItemAtPosition(position);
+
+            Intent intent = new Intent(MainActivity.this, ShowActivity.class);
+            intent.putExtra(ShowActivity.EXTRA_CITY, clickedCity);
+            startActivity(intent);
+        });
 
         final Button addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
